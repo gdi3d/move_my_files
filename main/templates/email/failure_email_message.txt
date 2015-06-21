@@ -1,0 +1,5 @@
+While executing the task "{{ task|safe }}" on the "{{ action|safe }}" action this happend:
+
+{{ error|safe }}
+
+Date: {{ date }}
