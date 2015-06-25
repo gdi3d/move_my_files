@@ -34,4 +34,4 @@ Now open your browser at:
 **password:** admin
 
 ### Misc
-S3 and Dropbox storage base files were taken from https://github.com/nimbis/django-dbbackup
+S3 and Dropbox storage base files were taken from https://github.com/mjs7231/django-dbbackup
