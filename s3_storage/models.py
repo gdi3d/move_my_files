@@ -23,7 +23,7 @@ class S3Storage(AbstractStorage):
     def __init__(self, access_key, secret_key, bucket, secure):
         
         self.conn = S3Connection(aws_access_key_id=access_key, aws_secret_access_key=secret_key, is_secure=secure)
-        self.bucket = self.conn.get_bucket(self.bucket)    
+        self.bucket = self.conn.get_bucket(bucket)    
 
     def delete_file(self, filepath):
         self.bucket.delete_key(filepath)
