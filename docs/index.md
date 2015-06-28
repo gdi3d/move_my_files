@@ -1,17 +1,39 @@
-# Welcome to MkDocs
+# Move My Files (on beta state)
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+## Why use this?
+You manage a few servers for some clients. Those clients have, on  regular basis, backups tasks and they store their backups on different services like S3, FTP, Dropbox, etc.
 
-## Commands
+For each client you would have to setup scripts to transfer those files from the source to remote backups servers.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+## How?
+Centralizate all your **mv** operations on one place.
 
-## Project layout
+1. Setup the conections credentials for the source and remote servers
+2. Create a the task setting the source and remote connection to use and what files (/some/path/to/file.tar.gz or /some/path/to/*)
+3. Schedule that task.
+4. Start the deamon using `./manage.py runscript deamon` (this will run the file on scripts/deamon.py)
+5. Add to your OS schedule a task to run every minute with the command `./manage.py runscript scheduler` (this will run the file on scripts/scheduler.py) 
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+
+# Install
+I would recommend to install it using [Virtual Environments](http://docs.python-guide.org/en/latest/dev/virtualenvs/) (and [virtualenvwrapper](http://docs.python-guide.org/en/latest/dev/virtualenvs/#virtualenvwrapper) that provides autocomplete features).  
+
+Install:
+```
+mkvirtualenv move_my_files
+workon move_my_files
+mkdir move_my_files
+cd move_my_files
+git clone https://github.com/gdi3d/move_my_files.git .
+pip install -r requirements.txt
+./manage.py runserver
+```
+Now open your browser at:
+
+[http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) and login using:
+
+**username:** admin  
+**password:** admin
+
+## Misc
+S3 and Dropbox storage base files were taken from https://github.com/mjs7231/django-dbbackup

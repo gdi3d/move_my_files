@@ -13,8 +13,10 @@ from datetime import datetime
 
 def run():
 
-    q = Queue(maxsize=0)
+    print "I'm ready to go..."
 
+    q = Queue(maxsize=0)
+    
     max_workers = 5
 
     for i in range(max_workers):

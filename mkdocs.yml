@@ -6,3 +6,4 @@ repo_url: https://github.com/gdi3d/move_my_files
 pages:
 - ['index.md', 'Overview']
 - ['create-storage.md', 'Storages']
+- ['scripts.md', 'Deamon and Scheduler']
