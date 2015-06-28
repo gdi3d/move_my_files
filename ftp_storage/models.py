@@ -15,18 +15,21 @@ import os
 class FtpStorage(AbstractStorage):
     """ FTP API Storage """
     
-    def __init__(self, host, user, password, port):        
+    def __init__(self, host, user, password, port, debug = False):        
         
-        self.host = host + ':' + str(port)
+        self.host = host
         self.user = user
         self.password = password
-        self.passive_mode = passive_mode
+        self.port = port
 
-        self.conn = FTP(self.host, self.user, self.password, timeout=60)        
+        self.conn = FTP(timeout=60)
+        self.conn.connect(self.host, self.port)
+        self.conn.login(self.user, self.password) 
         self.conn.set_pasv(True)
 
         # enable this when you're debugging
-        #self.conn.set_debuglevel(3)
+        if debug:
+            self.conn.set_debuglevel(3)
     
     def delete_file(self, filepath):
         """ Delete the specified filepath. """
