@@ -12,7 +12,6 @@ Centralizate all your **mv** operations on one place.
 2. Create a the task setting the source and remote connection to use and what files (/some/path/to/file.tar.gz or /some/path/to/*)
 3. Schedule that task.
 
-
 # Install
 I would recommend to install it using [Virtual Environments](http://docs.python-guide.org/en/latest/dev/virtualenvs/) (and [virtualenvwrapper](http://docs.python-guide.org/en/latest/dev/virtualenvs/#virtualenvwrapper) that provides autocomplete features).  
 
@@ -32,6 +31,9 @@ Now open your browser at:
 
 **username:** admin  
 **password:** admin
+
+# Docs
+[http://move-my-files.readthedocs.org/en/latest/](http://move-my-files.readthedocs.org/en/latest/)
 
 ### Misc
 S3 and Dropbox storage base files were taken from https://github.com/mjs7231/django-dbbackup
