@@ -1,0 +1,8 @@
+site_name: Move my files
+theme: readthedocs
+docs_dir: 'docs'
+repo_url: https://github.com/gdi3d/move_my_files
+
+pages:
+- ['index.md', 'Overview']
+- ['create-storage.md', 'Storages']
