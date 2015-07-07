@@ -26,7 +26,7 @@ def run():
 
         if not pool:
             s.task.add_to_pool()
-        else if s.task.recurrent:
+        elif s.task.recurrent:
             # check if the task in the scheduler
             # should be added to the task pool
             if s.repeat_interval_type == Scheduler.INTERVAL_TYPE_HOURS:
