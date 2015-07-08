@@ -26,7 +26,7 @@ def run():
 
         if not pool:
             s.task.add_to_pool()
-        elif s.task.recurrent:
+        elif s.recurrent:
             # check if the task in the scheduler
             # should be added to the task pool
             if s.repeat_interval_type == Scheduler.INTERVAL_TYPE_HOURS:
@@ -43,8 +43,7 @@ def run():
             
             # ugly hack to fix missing group by
             task_checked = list()
-            for p in pool:
-                
+            for p in pool:                
                 # ugly hack to fix missing group by
                 if s.task.id not in task_checked:
                     # when this task should run again?
@@ -53,4 +52,4 @@ def run():
                     if next_run <= now.astimezone(timezone(settings.TIME_ZONE)):                        
                         s.task.add_to_pool()
 
-                    task_checked.append(s.task.id)
+                    task_checked.append(s.task.id)                    

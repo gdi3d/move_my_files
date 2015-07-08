@@ -161,6 +161,10 @@ class Worker(Thread):
                 pool.save()
 
             download_from = download_from[0]
+            
+            # update source pathname
+            self.item.source_pathname = download_from
+            self.item.save()
 
         # create a temp folder for the downloaded file
         temp_dir = mkdtemp(dir=settings.TEMP_DOWNLOAD_DIR)
@@ -172,7 +176,7 @@ class Worker(Thread):
         # before we upload it
         save_to = os.path.join(temp_dir, filename)
         
-        return storage_conn.download(download_from, save_to)        
+        return storage_conn.download(download_from, save_to)
 
     def notify_task_finished(self, file_location):
         """ Actions to proccess once the task is finished """
@@ -328,13 +332,12 @@ class Connection(models.Model):
         return self.conn.get_files_by_wildcard(pathname)        
 
 class Task(models.Model):
-
     source_connection = models.ForeignKey('Connection', related_name="id_source_connection", help_text=_("Source connection"))
     target_connection = models.ForeignKey('Connection', related_name="id_destination_connection", help_text=_("Destination connection"))
     name        = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     source_pathname = models.CharField(max_length=255, help_text=_("You can also use python date formats: %D, %m, etc"))
-    target_pathname = models.CharField(max_length=255, help_text=_('Use {source_filename} if you want to use the same filename. You can also use python date formats: %D, %m, etc'), default='{source_filename}')      
+    target_pathname = models.CharField(max_length=255, help_text=_('Use {source_filename} if you want to use the same filename. You can also use python date formats: %d, %m, etc'), default='{source_filename}')      
     failure_email   = models.BooleanField(_("Send email on Failure"), default=True)
     failure_email_address = models.EmailField(_("Email Address"), blank=True, help_text=_('If empty will use DEFAULT_NOTIFICATION_EMAIL from settings'))
     retries     = models.SmallIntegerField(_('Max. Retries'), default=3)
@@ -378,8 +381,8 @@ class Scheduler(models.Model):
     start_date  = models.DateTimeField()
     end_date    = models.DateTimeField()
     recurrent   = models.BooleanField(default=False)
-    repeat_interval_type = models.SmallIntegerField(choices=INTERVAL_TYPES_CHOICES, blank=True)
-    repeat_interval = models.IntegerField(blank=True)
+    repeat_interval_type = models.SmallIntegerField(choices=INTERVAL_TYPES_CHOICES, default=0)
+    repeat_interval = models.IntegerField(default=15)
     enabled      = models.BooleanField(default=True)    
     
     objects = SchedulerManager()
